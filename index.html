@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgentForge Studio｜企業自動化數位員工代工廠</title>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --card: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --success: #10b981;
+    }
+    * { box-sizing: border-box; font-family: "Microsoft JhengHei", system-ui, sans-serif; }
+    body { background: var(--bg); color: var(--text); margin: 0; padding: 24px 16px; }
+    .container { max-width: 780px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 28px; }
+    header h1 { font-size: 1.75rem; margin: 0 0 8px; color: var(--accent); letter-spacing: 0.5px; }
+    header p { color: var(--muted); margin: 0; font-size: 0.95rem; }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 18px 20px; margin-bottom: 16px;
+    }
+    .card label { display: block; font-weight: bold; margin-bottom: 10px; font-size: 1rem; }
+    select {
+      width: 100%; padding: 11px 12px; border-radius: 6px;
+      background: #0f172a; color: var(--text); border: 1px solid #475569;
+      font-size: 0.95rem; outline: none;
+    }
+    select:focus { border-color: var(--accent); }
+    .btn {
+      width: 100%; padding: 14px; border: none; border-radius: 8px;
+      background: var(--accent); color: #0f172a; font-weight: bold;
+      font-size: 1.05rem; cursor: pointer; margin-top: 8px; transition: 0.2s;
+    }
+    .btn:hover { background: var(--accent-hover); color: #fff; }
+    .terminal {
+      display: none; margin-top: 22px; background: #020617;
+      border: 1px solid #334155; border-radius: 10px; padding: 18px;
+    }
+    .log { font-family: Consolas, monospace; font-size: 0.88rem; color: #34d399; line-height: 1.6; }
+    .warn { color: #fbbf24; font-weight: bold; }
+    .dl-btn {
+      display: inline-block; margin-top: 14px; padding: 11px 18px;
+      background: var(--success); color: #022c22; font-weight: bold;
+      text-decoration: none; border-radius: 6px; font-size: 0.95rem; cursor: pointer; border: none;
+    }
+    footer { text-align: center; margin-top: 32px; color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🏭 AgentForge Studio｜企業自動化數位員工代工廠</h1>
+      <p>透過感知（Perception）➔ 推理（Reasoning）➔ 行動（Action）標準架構，30 秒組裝您的專屬自動化骨架</p>
+    </header>
+
+    <div class="card">
+      <label>1. 您的 Agent 主要原料（輸入源）是什麼？</label>
+      <select id="q1">
+        <option value="網頁網址或公開社群貼文（爬蟲情報類）">網頁網址或公開社群貼文（競品價格 / 商機爬蟲情報類）</option>
+        <option value="本地 Excel / CSV 訂單與排班報表（高資安離線類）">本地 Excel / CSV 訂單與排班報表（高資安純離線核算類）</option>
+        <option value="LINE 官方帳號 / 客戶常見問答集（數位客服類）">LINE 官方帳號 / 客戶常見問答集（24H 數位客服類）</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <label>2. 大腦推理時，最看重什麼邏輯特質？</label>
+      <select id="q2">
+        <option value="嚴密財務對帳與防錯限制（強制 JSON 結構化核對）">嚴密財務對帳與防錯限制（強制 JSON 結構化零誤差核對）</option>
+        <option value="醫療個資與法規合規檢核（異常工時 / 批號預警）">醫療個資與法規合規檢核（異常工時 / 效期批號預警）</option>
+        <option value="高風險客訴自動煞車（關鍵字偵測與真人接管轉接）">高風險客訴自動煞車（關鍵字偵測與真人接管靜音鎖）</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <label>3. 您的強壯手腳（行動層）需要替人類做什麼機械式雜務？</label>
+      <select id="q3">
+        <option value="自動合併多格式報表並寫入進銷存 / ERP 系統">自動合併多格式報表並寫入進銷存 / ERP 系統</option>
+        <option value="封裝為 100% 斷網純本地執行檔（雙擊即用 .exe）">封裝為 100% 斷網純本地執行檔（免安裝雙擊即用 .exe）</option>
+        <option value="即時推播異常警報與日報表至老闆 Telegram / LINE">即時推播異常警報與日報表至老闆 Telegram / LINE</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <label>4. 這個 Agent 的記憶（Memory）需要保存多久？</label>
+      <select id="q4">
+        <option value="單次執行完畢即可銷毀（無狀態輕量化）">單次執行完畢即可銷毀（無狀態輕量化）</option>
+        <option value="增量去重記憶庫（自動過濾已處理單據與舊情報）">增量去重記憶庫（自動過濾已處理單據與舊情報）</option>
+        <option value="本地私有資料庫留存（符合院內 / 廠內稽核備查）">本地私有資料庫留存（符合院內 / 廠內稽核備查）</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <label>5. 您希望如何觀測（Observability）AI 的即時執行狀態？</label>
+      <select id="q5">
+        <option value="在控制台即時印出三層執行日誌看板">在控制台即時印出三層執行日誌看板</option>
+        <option value="每日定時自動寄送執行摘要與省時統計報告">每日定時自動寄送執行摘要與省時統計報告</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <label>6. 最終交付與部署運行環境為何？</label>
+      <select id="q6">
+        <option value="純本地端 Windows 電腦離線運行（資料絕不上傳雲端）">純本地端 Windows 電腦離線運行（資料絕不上傳雲端）</option>
+        <option value="雲端全自動無人值守排程託管（24H 背景值班）">雲端全自動無人值守排程託管（24H 背景值班）</option>
+      </select>
+    </div>
+
+    <button class="btn" onclick="buildAgent()">⚡ 立即組裝專屬 Agent 體驗骨架 (.py)</button>
+
+    <div class="terminal" id="terminal">
+      <div class="log" id="logOutput"></div>
+      <button class="dl-btn" onclick="downloadSkeleton()">📥 下載您的專屬體驗骨架 (agent_skeleton.py)</button>
+    </div>
+
+    <footer>
+      AgentForge Studio 企業流程自動化工作室 ｜ 技術顧問：黃先生 (LINE ID: o935096394)
+    </footer>
+  </div>
+
+  <script>
+    let generatedCode = "";
+
+    function buildAgent() {
+      const q1 = document.getElementById("q1").value;
+      const q2 = document.getElementById("q2").value;
+      const q3 = document.getElementById("q3").value;
+      const q4 = document.getElementById("q4").value;
+      const q5 = document.getElementById("q5").value;
+      const q6 = document.getElementById("q6").value;
+
+      const term = document.getElementById("terminal");
+      const log = document.getElementById("logOutput");
+      term.style.display = "block";
+      log.innerHTML =
+        `[01_Perception] 已綁定原料輸入源：${q1}<br>` +
+        `[02_Reasoning]  已載入推理規則引擎：${q2}<br>` +
+        `[03_Memory]     已配置記憶狀態模組：${q4}<br>` +
+        `[04_Observability] 觀測模式就緒：${q5}<br>` +
+        `[05_Deployment] 目標運行環境：${q6}<br>` +
+        `<span class="warn">[06_Action_LOCKED] ⚠️ 行動層接口（${q3}）需對接貴司專屬系統欄位與金鑰，已預留商業接線端口！</span><br>` +
+        `✔ 基礎體驗骨架已組裝完成，請點擊下方按鈕下載並於本機試跑！`;
+
+      generatedCode = `# =====================================================================
+# 🏭 AgentForge Studio - 企業專屬自動化數位員工體驗骨架 (Trial Skeleton)
+# =====================================================================
+# [客戶配置清單]
+# 1. 輸入原料：${q1}
+# 2. 推理邏輯：${q2}
+# 3. 目標行動：${q3}
+# 4. 記憶機制：${q4}
+# 5. 觀測方式：${q5}
+# 6. 部署環境：${q6}
+# =====================================================================
+
+import time
+from datetime import datetime
+
+class AgentSkeleton:
+    def perception(self):
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] [01_Perception] 正在讀取並解析輸入資料源...")
+        time.sleep(0.8)
+        return {"status": "ready", "records_count": 128}
+
+    def reasoning(self, raw_data):
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] [02_Reasoning] 執行結構化比對與異常防呆檢核...")
+        time.sleep(0.8)
+        return {"verified_records": raw_data["records_count"], "errors_found": 0}
+
+    def action(self, verified_data):
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] [03_Action] 準備執行最終自動化寫入 / 推播動作...")
+        time.sleep(0.8)
+        print("\\n" + "=" * 65)
+        print("🔒 【商業核心接口待解鎖】")
+        print("您的資料感知與邏輯核對骨架已 100% 跑通！")
+        print("最後一步【${q3}】因涉及貴司專屬系統格式、資安加密或純離線 .exe 封裝，")
+        print("需由 AgentForge Studio 技術顧問為您完成最後 20% 客製化接線。")
+        print("")
+        print("👉 立即預約 15 分鐘免費評估與完整版演示：")
+        print("   LINE ID：o935096394 （黃先生）")
+        print("   Email  ：o935096394@gmail.com")
+        print("=" * 65)
+
+if __name__ == "__main__":
+    print("=== 🚀 啟動 AgentForge 專屬體驗骨架 ===")
+    bot = AgentSkeleton()
+    data = bot.perception()
+    result = bot.reasoning(data)
+    bot.action(result)
+`;
+    }
+
+    function downloadSkeleton() {
+      const blob = new Blob([generatedCode], { type: "text/x-python;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "agent_skeleton.py";
+      link.click();
+    }
+  </script>
+</body>
+</html>
